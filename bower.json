@@ -1,0 +1,26 @@
+{
+  "name": "backbone.intactmodel",
+  "version": "0.0.1",
+  "description": "Keep your Backbone models intact using strict property declaration without loosing flexibility.",
+  "main": "backbone.intactmodel.js",
+  "authors": [
+    "Carl Törnqvist <carl.tornqvist@gmail.se>"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "dependencies": {
+    "underscore": "~1.6.0",
+    "backbone": "~1.1.2"
+  }
+}

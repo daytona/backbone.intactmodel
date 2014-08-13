@@ -1,0 +1,19 @@
+{
+  "browser": true,
+  "strict": true,
+  "eqeqeq": true,
+  "indent": 2,
+  "newcap": true,
+  "plusplus": true,
+  "trailing": true,
+  "loopfunc": false,
+  "nomen": true,
+  "white": true,
+  "undef": true,
+  "latedef": true,
+  "globals": {
+    "require": true,
+    "define": true,
+    "module": true
+  }
+}

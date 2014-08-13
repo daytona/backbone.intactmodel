@@ -1,0 +1,30 @@
+{
+  "name": "backbone.intactmodel",
+  "version": "0.0.1",
+  "description": "Keep your Backbone models intact using strict property declaration without loosing flexibility.",
+  "main": "backbone.intactmodel.js",
+  "scripts": {
+    "build": "node build.js",
+    "test": "npm run build && open ./test/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daytona/backbone.intactmodel.git"
+  },
+  "keywords": [
+    "backbone"
+  ],
+  "author": "Carl Törnqvist <calle.tornqvist@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daytona/backbone.intactmodel/issues"
+  },
+  "dependencies": {
+    "underscore": "~1.6.0",
+    "backbone": "~1.1.2"
+  },
+  "devDependencies": {
+    "uglify-js": "~2.4.15",
+    "qunitjs": "~1.15.0"
+  }
+}
