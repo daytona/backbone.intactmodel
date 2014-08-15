@@ -67,6 +67,9 @@ model.get('greeting'); // "Hello world!"
 
 ## Notes on model methods
 
+### validate
+IntactModel has the funciton it uses for testing properties assigned as it's default `validate` method. Override this if you have other needs regarding validation.
+
 ### clone
 The clone method is unaltared, meaning it only clones model.attributes.
 
