@@ -10,15 +10,13 @@
 
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['underscore', 'backbone'], function (_, Backbone) {
-      return (root.IntactModel = factory(_, Backbone));
-    });
+    define(['underscore', 'backbone'], factory(_, Backbone));
   } else if (typeof exports === 'object') {
     // Node.
     module.exports = factory(require('underscore'), require('backbone'));
   } else {
     // Browser globals
-    root.IntactModel = factory(root._, root.Backbone);
+    factory(root._, root.Backbone);
   }
 
 }(this, function (_, Backbone) {
