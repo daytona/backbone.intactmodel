@@ -1,7 +1,7 @@
 {
   "name": "backbone.intactmodel",
   "version": "0.0.1",
-  "description": "Keep your Backbone models intact using strict property declaration without loosing flexibility.",
+  "description": "Keep your Backbone models intact using strict property declaration without loosing flexibility with session and derived attributes.",
   "main": "backbone.intactmodel.js",
   "scripts": {
     "build": "node build.js",
