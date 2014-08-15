@@ -12,7 +12,8 @@
     "url": "https://github.com/daytona/backbone.intactmodel.git"
   },
   "keywords": [
-    "backbone"
+    "backbone",
+    "model"
   ],
   "author": "Carl Törnqvist <calle.tornqvist@gmail.com>",
   "license": "MIT",

@@ -1,6 +1,6 @@
 # IntactModel
 
-IntactModel is in most part inspired by Henrik Joreteg's [HumanModel](https://github.com/HenrikJoreteg/human-model) and would not have been made was it not for the pressing need for legacy compliancy (I'm looking at you, IE8). IntactModel aims to help you keep strictly typed properties set to the model and at the same time allow for session attributes such as states or arbitrary data without persisting them to the server.
+IntactModel is in most part inspired by Henrik Joreteg's [HumanModel](https://github.com/HenrikJoreteg/human-model) and would not have been made was it not for the pressing need for legacy support (I'm looking at you, IE8). IntactModel aims to help you keep your models intact by forcing strictly typed properties set to the model and at the same time allow for session attributes such as states or arbitrary data without persisting them to the server.
 Properties declaration aim to follow the [JSON Schema](http://json-schema.org/) for testing types. *In no way* is this a complete implementation of the JSON schema, only `type` is implemented at this time.
 
 ## Properties
