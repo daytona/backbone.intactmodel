@@ -100,7 +100,5 @@ model.clear();
 model.attributes; // {}
 ```
 
-## TODO
-- Write tests for IntactModel.save
-- Publish to npm registry
-- Publish to Bower registry
+## License
+[MIT](http://opensource.org/licenses/MIT)
