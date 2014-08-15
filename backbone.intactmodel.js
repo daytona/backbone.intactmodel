@@ -63,7 +63,7 @@
       _(this.derived).forEach(function (fn, key, list) {
         if (!_.isFunction(fn)) return;
 
-        derived[key] = fn.call(self);
+        derived[key] = fn.call(self, options);
       });
 
       // Compile all model attributes
