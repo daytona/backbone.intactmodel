@@ -123,13 +123,6 @@
     },
 
     /**
-     * Return a complete clone of the model's "native" and session attributes.
-     */
-    clone: function() {
-      return new this.constructor(_.extend({}, this.attributes, this.session));
-    },
-
-    /**
      * Smart set assumption
      * Set attributes that pass type validation.
      * Attributes that does not pass are ignored.

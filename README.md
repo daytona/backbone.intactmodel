@@ -35,10 +35,10 @@ var model = new Model({
   'bar': 'bar'
 });
 
-model.toJSON();   // {"foo": "foo", "bar": "bar"}
-model.attributes; // {"foo": "foo"}
-model.session;    // {"bar": "bar"}
-model.save();     // Payload: {"foo": "foo"}
+JSON.stringify(model);  // {"foo": "foo", "bar": "bar"}
+model.attributes;       // {"foo": "foo"}
+model.session;          // {"bar": "bar"}
+model.save();           // Payload: {"foo": "foo"}
 ```
 
 ## Derived attributes
@@ -65,10 +65,10 @@ var model = new Model({
 model.get('greeting'); // "Hello world!"
 ```
 
-## Where IntactModel differs from Backbone.Model
+## Notes on model methods
 
 ### clone
-Cloning a IntactModel carries over both the "native" attributes and the session attributes to the clone.
+The clone method is unaltared, meaning it only clones model.attributes.
 
 ### clear
 Clearing a model behaves in essence in the same way as a default Backbone Model. Calling clear on a model simply unsets all its "native" and session attributes. However, passing in the option `graceful` unsets only the session attributes, leaving the `model.attributes` untouched.

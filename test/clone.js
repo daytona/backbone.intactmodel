@@ -25,6 +25,6 @@
     var clone = model.clone();
 
     assert.propEqual(model.attributes, clone.attributes, 'Attributes were cloned');
-    assert.propEqual(model.session, clone.session, 'Session was cloned');
+    assert.ok(_.isUndefined(clone.get('bar')), 'Session was not cloned');
   });
 }());
