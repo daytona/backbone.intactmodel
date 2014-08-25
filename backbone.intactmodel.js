@@ -77,9 +77,12 @@
       var val;
       var groups = [this.attributes, this.session, this.derived];
 
-      _(groups).forEach(function (group, index, list) {
-        val = val || group[attr];
-      });
+      for (var i = 0, l = groups.length; i < l; i += 1) {
+        if (groups[i].hasOwnProperty(attr)) {
+          val = groups[i][attr];
+          break;
+        }
+      }
 
       return _.isFunction(val) ? val.call(this) : val;
     },
