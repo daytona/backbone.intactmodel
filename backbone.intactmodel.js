@@ -88,6 +88,14 @@
     },
 
     /**
+     * Safety wrapper so as to not cause a recursive
+     * loop when using `has` in a derived method
+     */
+    has: function (attr) {
+      return !_.isUndefined(this.attribute[attr] || this.session[attr] || this.derived[attr]);
+    },
+
+    /**
      * Graceful clear
      * Default clear method unset both "native" and session attributes.
      * Passing the option `graceful` unsets only the session attributes.
