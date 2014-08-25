@@ -92,7 +92,7 @@
      * loop when using `has` in a derived method
      */
     has: function (attr) {
-      return !_.isUndefined(this.attribute[attr] || this.session[attr] || this.derived[attr]);
+      return !_.isUndefined(this.attributes[attr] || this.session[attr] || this.derived[attr]);
     },
 
     /**
