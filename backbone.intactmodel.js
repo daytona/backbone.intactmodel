@@ -60,7 +60,7 @@
       var derived = {};
 
       // Compile derived attributes
-      _(this.derived).forEach(function (fn, key, list) {
+      _(this.derived).each(function (fn, key, list) {
         if (!_.isFunction(fn)) return;
 
         derived[key] = fn.call(self, options);
@@ -100,7 +100,7 @@
       // Optionally clear only session attributes
       if (!options.graceful) _.extend(list, this.attributes);
 
-      _(list).forEach(function (val, key, list) {
+      _(list).each(function (val, key, list) {
         attrs[key] = UNDEFINED;
       });
 
@@ -187,9 +187,9 @@
       if (_.has(attributes, this.idAttribute)) this.id = attributes[this.idAttribute];
 
       // Test both "native" and session attributes
-      _(attrs).forEach(function (attrType, type, list) {
+      _(attrs).each(function (attrType, type, list) {
         // Update or delete their respective value
-        _(attrType).forEach(_.partial(handleAttr, type));
+        _(attrType).each(_.partial(handleAttr, type));
       });
 
       // Trigger all relevant attribute changes.
@@ -323,7 +323,7 @@
 
     attrs = _.clone(attrs);
 
-    _(attrs).forEach(function (value, key, list) {
+    _(attrs).each(function (value, key, list) {
       var type, length;
       var prop = props[key];
 
