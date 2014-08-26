@@ -89,10 +89,16 @@
 
     /**
      * Safety wrapper so as to not cause a recursive
-     * loop when using `has` in a derived method
+     * loop when using `has` inside of a derived method
      */
     has: function (attr) {
-      return !_.isUndefined(this.attributes[attr] || this.session[attr] || this.derived[attr]);
+      var groups = [this.attributes, this.session, this.derived];
+
+      for (var i = 0, l = groups.length; i < l; i += 1) {
+        if (groups[i].hasOwnProperty(attr)) return true;
+      }
+
+      return false;
     },
 
     /**

@@ -24,7 +24,7 @@
   QUnit.test('All properties', function(assert) {
     var model = new Model(attrs);
 
-    assert.propEqual(model.toJSON(), attrs, 'Attributes came out fine');
+    assert.propEqual(model.toJSON(), attrs, 'All attributes match');
   });
 
   QUnit.test('With derived', function(assert) {
@@ -42,6 +42,6 @@
 
     var model = new DerivedModel(attrs);
 
-    assert.propEqual(model.toJSON(), result, 'Attributes came out fine');
+    assert.propEqual(model.toJSON(), result, 'All attributes match');
   });
 }());
