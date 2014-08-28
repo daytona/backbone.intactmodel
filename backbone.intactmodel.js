@@ -28,8 +28,13 @@
    * IntactModel constructor
    */
   var IntactModel = function (attributes, options) {
-    this.properties = this.properties || {};
-    this.derived = this.derived || {};
+    // Cloning these properties only gets us so far.
+    // The nestled attributes are still passed by reference so if you were
+    // to e.g. change the "type" attribute of a property for an instance,
+    // you'd change it for the all models of the same class.
+    // This should be looked into.
+    this.properties = _.clone(this.properties || {});
+    this.derived = _.clone(this.derived || {});
 
     // Ensure a blank session state
     this.session = {};
