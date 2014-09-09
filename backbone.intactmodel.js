@@ -299,6 +299,20 @@
     }
   });
 
+  // Underscore methods that we want to implement on the Model.
+  var modelMethods = ['keys', 'values', 'pairs', 'invert', 'pick', 'omit'];
+
+  // Mix in each Underscore method as a proxy to `Model#attributes`.
+  _.each(modelMethods, function(method) {
+    IntactModel.prototype[method] = function() {
+      var args = Array.prototype.slice.call(arguments);
+
+      args.unshift(this.compile());
+
+      return _[method].apply(_, args);
+    };
+  });
+
   // Attach Backbone Model's extend method
   IntactModel.extend = Backbone.Model.extend;
 
