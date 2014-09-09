@@ -50,7 +50,7 @@
      */
     validate: function (attrs, options) {
       var keys = _.keys(attrs);
-      var result = _.bind(filter, this)(attrs, options);
+      var result = _.bind(testAttributes, this)(attrs);
 
       if (keys.length !== _.keys(result.attributes).length) {
         return (new Error('One or more attributes are not valid.'));
@@ -186,7 +186,7 @@
       if (!this._validate(attrs, options)) return false;
 
       // Filter out attributes unaccounted for as "session" attributes
-      attrs = _.bind(filter, this)(attrs, options);
+      attrs = _.bind(testAttributes, this)(attrs);
       attributes = attrs.attributes;
       session = attrs.session;
 
@@ -260,7 +260,7 @@
         if (!this._validate(attrs, options)) return false;
       }
 
-      attrs = _.bind(filter, this)(attrs, options);
+      attrs = _.bind(testAttributes, this)(attrs);
 
       // Set temporary attributes if `{wait: true}`.
       if (attrs && options.wait) {
@@ -353,7 +353,7 @@
    * Validate attributes and seperate them as attributes/session
    * depending on wether the property is accounted for and of the correct type.
    */
-  var filter = function (attrs) {
+  var testAttributes = function (attrs) {
     var session = {};
     var props = this.properties;
     var idAttr = this.idAttribute;
