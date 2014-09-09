@@ -93,17 +93,15 @@
     },
 
     /**
-     * Safety wrapper so as to not cause a recursive
-     * loop when using `has` inside of a derived method
+     * See that a model has all it's properties assigned
      */
-    has: function (attr) {
-      var groups = [this.attributes, this.session, this.derived];
+    isComplete: function () {
+      var attrs = this.attributes;
+      var props = _.keys(this.properties);
 
-      for (var i = 0, l = groups.length; i < l; i += 1) {
-        if (groups[i].hasOwnProperty(attr)) return true;
-      }
-
-      return false;
+      return _.every(props, function (prop) {
+        return attrs.hasOwnProperty(prop);
+      });
     },
 
     /**
@@ -355,7 +353,7 @@
    * Validate attributes and seperate them as attributes/session
    * depending on wether the property is accounted for and of the correct type.
    */
-  var filter = function (attrs, options) {
+  var filter = function (attrs) {
     var session = {};
     var props = this.properties;
     var idAttr = this.idAttribute;

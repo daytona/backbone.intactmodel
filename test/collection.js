@@ -29,7 +29,7 @@
     collection.add(model);
     collection.add(attrs);
 
-    assert.propEqual(collection.at(0).toJSON(), collection.at(1).toJSON(), 'Added model and added attributes are added correctly');
+    assert.propEqual(collection.at(0).compile(), collection.at(1).attributes, 'Added model and added attributes are added correctly');
   });
 
   QUnit.test('As model attribute', function (assert) {
@@ -42,6 +42,6 @@
     var collection = new Collection([model, attrs]);
 
     assert.ok(collection.at(0) instanceof Backbone.IntactModel, 'Pre-defined IntactModel is an instance of it\'s prototype');
-    assert.ok(collection.at(1) instanceof Backbone.IntactModel, 'Added attributes are an instance of IntactModel');
+    assert.ok(collection.at(1) instanceof Backbone.IntactModel, 'Added attributes creates an instance of IntactModel');
   });
 }());

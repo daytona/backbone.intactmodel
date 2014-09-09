@@ -67,6 +67,9 @@ model.get('greeting'); // "Hello world!"
 
 ## Notes on model methods
 
+### isComplete
+A utility function for checking whether a model has all it's declared properties as defined attributes. Useful for determining if the model ought to be fetched to ensure complete data.
+
 ### compile
 The `compile` method is a way of getting all the model's data. Compile returns the the model's `attributes`, `session` and `derived` properties, all merged in to one object, in that order (meaning colliding attribute names we be overridden).
 
@@ -74,10 +77,10 @@ The `compile` method is a way of getting all the model's data. Compile returns t
 The toJSON performs the `compile` method (see above).
 
 ### validate
-IntactModel has the funciton it uses for testing properties assigned as it's default `validate` method. Override this if you have other needs regarding validation.
+IntactModel has the function it uses for testing properties assigned as it's default `validate` method. Override this if you have other needs regarding validation.
 
 ### clone
-The clone method is unaltared, meaning it only clones model.attributes.
+The clone method is unaltered, meaning it only clones model.attributes.
 
 ### clear
 Clearing a model behaves in essence in the same way as a default Backbone Model. Calling clear on a model simply unsets all its "native" and session attributes. However, passing in the option `graceful` unsets only the session attributes, leaving the `model.attributes` untouched.

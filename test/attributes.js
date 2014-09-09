@@ -4,7 +4,7 @@
 
   var Model;
 
-  QUnit.module('Get and set', {
+  QUnit.module('Attributes', {
     setup: function () {
       Model = Backbone.IntactModel.extend({
         properties: {
@@ -42,7 +42,7 @@
 
     assert.ok(!model.has('foo'), '"Has" not unassigned property');
     assert.ok(!model.has('bar'), '"Has" not unassigned session attribute');
-    assert.ok(model.has('baz'), '"Has" declared derived attribute');
+    assert.ok(!model.has('baz'), '"Has" not derived attribute which returns null(-ish)');
 
     model.set({
       'foo': 'foo',
