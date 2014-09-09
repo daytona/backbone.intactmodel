@@ -4,7 +4,7 @@
 
   var Model, attrs;
 
-  QUnit.module('toJSON', {
+  QUnit.module('Compile', {
     setup: function () {
       attrs = {
         'foo': 'foo',
@@ -24,7 +24,7 @@
   QUnit.test('All properties', function(assert) {
     var model = new Model(attrs);
 
-    assert.propEqual(model.toJSON(), attrs, 'All attributes match');
+    assert.propEqual(model.compile(), attrs, 'All attributes match');
   });
 
   QUnit.test('With derived', function(assert) {
@@ -42,6 +42,6 @@
 
     var model = new DerivedModel(attrs);
 
-    assert.propEqual(model.toJSON(), result, 'All attributes match');
+    assert.propEqual(model.compile(), result, 'All attributes match');
   });
 }());

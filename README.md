@@ -67,6 +67,12 @@ model.get('greeting'); // "Hello world!"
 
 ## Notes on model methods
 
+### compile
+The `compile` method is a way of getting all the model's data. Compile returns the the model's `attributes`, `session` and `derived` properties, all merged in to one object, in that order (meaning colliding attribute names we be overridden).
+
+### toJSON
+The toJSON performs the `compile` method (see above).
+
 ### validate
 IntactModel has the funciton it uses for testing properties assigned as it's default `validate` method. Override this if you have other needs regarding validation.
 

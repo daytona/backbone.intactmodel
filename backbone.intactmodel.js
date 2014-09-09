@@ -60,7 +60,7 @@
     /**
      * Compile plain object from "native", session and derived attributes.
      */
-    toJSON: function (options) {
+    compile: function (options) {
       var self = this;
       var derived = {};
 
@@ -298,6 +298,9 @@
       return xhr;
     }
   });
+
+  // Proxy `toJSON` method to compile
+  IntactModel.toJSON = IntactModel.compile;
 
   // Underscore methods that we want to implement on the Model.
   var modelMethods = ['keys', 'values', 'pairs', 'invert', 'pick', 'omit'];
