@@ -216,7 +216,7 @@
       if (!silent) {
         if (changes.length) this._pending = options;
         for (var i = 0, l = changes.length; i < l; i += 1) {
-          this.trigger('change:' + changes[i], this, (attrs[changes[i]] || session[changes[i]]), options);
+          this.trigger('change:' + changes[i], this, this.get(changes[i]), options);
         }
       }
 
