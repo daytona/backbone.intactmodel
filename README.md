@@ -67,6 +67,15 @@ model.get('greeting'); // "Hello world!"
 
 ## Notes on model methods
 
+### extend
+A common pattern is to extend upon common model classes. To be able to extend on the model's `properties` and `derived` attributes without overwriting them, a custom deep extend is the default extend method for IntactModel. `IntactModel.extend` takes no regard as to what properties it performs a deep extend on. This means that also the `defaults` properties and any other object literals will be extend deep.
+
+If this behaviour is not what you want, simply reset the extend method to the `Backbone.Model` default, as so:
+
+```javascript
+Backbone.IntactModel.extend = Backbone.Model.extend;
+```
+
 ### isComplete
 A utility function for checking whether a model has all it's declared properties as defined attributes. Useful for determining if the model ought to be fetched to ensure complete data.
 
@@ -74,7 +83,7 @@ A utility function for checking whether a model has all it's declared properties
 The `compile` method is a way of getting all the model's data. Compile returns the the model's `attributes`, `session` and `derived` properties, all merged in to one object, in that order (meaning colliding attribute names we be overridden).
 
 ### toJSON
-The toJSON performs the `compile` method (see above).
+The toJSON method is unaltered, meaning it only returns a clone of the model attributes.
 
 ### validate
 IntactModel has the function it uses for testing properties assigned as it's default `validate` method. Override this if you have other needs regarding validation.
