@@ -28,11 +28,7 @@
    * IntactModel constructor
    */
   var IntactModel = function (attributes, options) {
-    // Cloning these properties only gets us so far.
-    // The nestled attributes are still passed by reference so if you were
-    // to e.g. change the "type" attribute of a property for an instance,
-    // you'd change it for the all models of the same class.
-    // This should be looked into.
+    // Ensure "properties" and "derived"
     this.properties = _.clone(this.properties || {});
     this.derived = _.clone(this.derived || {});
 
@@ -311,8 +307,60 @@
     };
   });
 
-  // Attach Backbone Model's extend method
-  IntactModel.extend = Backbone.Model.extend;
+  // Extend a given object with all the properties in passed-in object(s).
+  var deepExtend = function(obj, source) {
+    if (!_.isObject(obj)) return obj;
+
+    var prop;
+
+    for (prop in source) {
+      if (source.hasOwnProperty(prop)) {
+        if (obj.hasOwnProperty(prop) && _.isObject(obj[prop]) && _.isObject(source[prop])) {
+          deepExtend(obj[prop], source[prop]);
+        } else {
+          obj[prop] = source[prop];
+        }
+      }
+    }
+
+    return obj;
+  };
+
+  var extend = function(protoProps, staticProps) {
+    var parent = this;
+    var child;
+
+    // The constructor function for the new subclass is either defined by you
+    // (the "constructor" property in your `extend` definition), or defaulted
+    // by us to simply call the parent's constructor.
+    if (protoProps && _.has(protoProps, 'constructor')) {
+      child = protoProps.constructor;
+    } else {
+      child = function(){ return parent.apply(this, arguments); };
+    }
+
+    // Add static properties to the constructor function, if supplied.
+    _.extend(child, parent, staticProps);
+
+    // Set the prototype chain to inherit from `parent`, without calling
+    // `parent`'s constructor function.
+    var Surrogate = function(){ this.constructor = child; };
+    Surrogate.prototype = parent.prototype;
+    child.prototype = new Surrogate;
+
+    // Add prototype properties (instance properties) to the subclass,
+    // if supplied.
+    if (protoProps) deepExtend(child.prototype, protoProps);
+
+    // Set a convenience property in case the parent's prototype is needed
+    // later.
+    child.__super__ = parent.prototype;
+
+    return child;
+  };
+
+  // Attach custom extend method
+  IntactModel.extend = extend;
 
   // Add to Backbone
   Backbone.IntactModel = IntactModel;
