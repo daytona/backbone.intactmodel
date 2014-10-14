@@ -297,9 +297,6 @@
     }
   });
 
-  // Proxy `toJSON` method to compile
-  IntactModel.toJSON = IntactModel.compile;
-
   // Underscore methods that we want to implement on the Model.
   var modelMethods = ['keys', 'values', 'pairs', 'invert', 'pick', 'omit'];
 
