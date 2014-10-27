@@ -28,10 +28,6 @@
    * IntactModel constructor
    */
   var IntactModel = function (attributes, options) {
-    // Ensure "properties" and "derived"
-    this.properties = _.clone(this.properties || {});
-    this.derived = _.clone(this.derived || {});
-
     // Ensure a blank session state
     this.session = {};
 
@@ -61,7 +57,7 @@
       var derived = {};
 
       // Compile derived attributes
-      _(this.derived).each(function (fn, key, list) {
+      _(_.result(this, 'derived')).each(function (fn, key, list) {
         if (!_.isFunction(fn)) return;
 
         derived[key] = fn.call(self, options);
@@ -76,7 +72,8 @@
      */
     get: function (attr) {
       var val;
-      var groups = [this.attributes, this.session, this.derived];
+      var derived = (_.result(this, 'derived') || {});
+      var groups = [this.attributes, this.session, derived];
 
       for (var i = 0, l = groups.length; i < l; i += 1) {
         if (groups[i].hasOwnProperty(attr)) {
@@ -93,11 +90,9 @@
      */
     isComplete: function () {
       var attrs = this.attributes;
-      var props = _.keys(this.properties);
+      var props = _.keys(_.result(this, 'properties'));
 
-      return _.every(props, function (prop) {
-        return attrs.hasOwnProperty(prop);
-      });
+      return !props.length || _.every(props, _.bind(attrs.hasOwnProperty, attrs));
     },
 
     /**
@@ -308,15 +303,19 @@
   });
 
   // Extend a given object with all the properties in passed-in object(s).
-  var deepExtend = function(obj, source) {
+  var deepExtend = function (obj, source) {
     if (!_.isObject(obj)) return obj;
 
     var prop;
 
     for (prop in source) {
       if (source.hasOwnProperty(prop)) {
-        if (obj.hasOwnProperty(prop) && _.isObject(obj[prop]) && _.isObject(source[prop])) {
-          deepExtend(obj[prop], source[prop]);
+        if (obj.hasOwnProperty(prop) &&
+          _.isObject(obj[prop]) &&
+          _.isObject(source[prop] &&
+          !_.isFunction(obj[prop]) &&
+          !_.isFunction(source[prop]))) {
+            obj[prop] = deepExtend(obj[prop], source[prop]);
         } else {
           obj[prop] = source[prop];
         }
@@ -326,7 +325,7 @@
     return obj;
   };
 
-  var extend = function(protoProps, staticProps) {
+  var extend = function (protoProps, staticProps) {
     var parent = this;
     var child;
 
@@ -377,6 +376,7 @@
   // (which both Backbone and HumanModel will always have) to determine whether
   // an instantiated model or a simple object is being passed in.
   Backbone.Collection.prototype._prepareModel = function (attrs, options) {
+    console.log('custom');
     if (_.isFunction(attrs.initialize)) {
       if (!attrs.collection) attrs.collection = this;
       return attrs;
@@ -400,34 +400,36 @@
    */
   var testAttributes = function (attrs) {
     var session = {};
-    var props = this.properties;
+    var props = _.result(this, 'properties');
     var idAttr = this.idAttribute;
 
     attrs = _.clone(attrs);
 
-    _(attrs).each(function (value, key, list) {
-      var type, length;
-      var prop = props[key];
+    if (props) {
+      _(attrs).each(function (value, key, list) {
+        var type, length;
+        var prop = props[key];
 
-      // Don't try and handle the id
-      if (key === idAttr) return;
+        // Don't try and handle the id
+        if (key === idAttr) return;
 
-      // Don't allow attributes unaccounted for
-      if (_.isUndefined(prop)) {
-        session[key] = value;
+        // Don't allow attributes unaccounted for
+        if (_.isUndefined(prop)) {
+          session[key] = value;
 
-        delete attrs[key];
+          delete attrs[key];
 
-        return;
-      }
+          return;
+        }
 
-      // Capitalize type to match with underscore method
-      type = prop.type.replace('integer', 'number');
-      type = type.slice(0, 1).toUpperCase() + type.slice(1, type.length);
+        // Capitalize type to match with underscore method
+        type = prop.type.replace('integer', 'number');
+        type = type.slice(0, 1).toUpperCase() + type.slice(1, type.length);
 
-      // Test type using Underscore utility fn
-      if (!_.isUndefined(value) && !_['is' + type](value)) delete attrs[key];
-    });
+        // Test type using Underscore utility fn
+        if (!_.isUndefined(value) && !_['is' + type](value)) delete attrs[key];
+      });
+    }
 
     // Return attributes sparated as attributes/session
     return {
