@@ -68,12 +68,16 @@ model.get('greeting'); // "Hello world!"
 ## Notes on model methods
 
 ### extend
-A common pattern is to extend upon common model classes. To be able to extend on the model's `properties` and `derived` attributes without overwriting them, a custom deep extend is the default extend method for IntactModel. `IntactModel.extend` takes no regard as to what properties it performs a deep extend on. This means that also the `defaults` properties and any other object literals will be extend deep.
+A common pattern is to extend upon common model classes. To be able to extend on the model's `properties` and `derived` attributes without overwriting them, a custom deep extend is the default extend method for IntactModel. In short, `IntactModel.extend` performs a regular `Backbone.Model.extend` and also manually extends on it's super's `properties`, `derived` and `defaults`.
 
-If this behaviour is not what you want, simply reset the extend method to the `Backbone.Model` default, as so:
+If this behaviour is not what you want, simply call the default `Backbone.Model`'s extend method, as so:
 
 ```javascript
-Backbone.IntactModel.extend = Backbone.Model.extend;
+var MyModel = Backbone.Model.extend.call(SomeOtherModel, {
+  properties: {
+    'someAttribute': {type: 'string'}
+  }
+});
 ```
 
 ### isComplete
