@@ -2,5 +2,8 @@
 node_modules
 bower_components
 
+# Environment files
+npm-debug.log
+
 # OS generated files
 .DS_Store
