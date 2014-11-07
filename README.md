@@ -35,7 +35,7 @@ var model = new Model({
   'bar': 'bar'
 });
 
-JSON.stringify(model);  // {"foo": "foo", "bar": "bar"}
+model.compile();        // {"foo": "foo", "bar": "bar"}
 model.attributes;       // {"foo": "foo"}
 model.session;          // {"bar": "bar"}
 model.save();           // Payload: {"foo": "foo"}
@@ -73,7 +73,7 @@ A common pattern is to extend upon common model classes. To be able to extend on
 If this behaviour is not what you want, simply call the default `Backbone.Model`'s extend method, as so:
 
 ```javascript
-var MyModel = Backbone.Model.extend.call(SomeOtherModel, {
+var MyModel = Backbone.Model.extend.call(SomeIntactModel, {
   properties: {
     'someAttribute': {type: 'string'}
   }
