@@ -238,7 +238,7 @@
       var session = this.session;
 
       // Handle both `"key", value` and `{key: value}` -style arguments.
-      if (_.isObject(key)) {
+      if (!key || _.isObject(key)) {
         attrs = key;
         options = val;
       } else {
