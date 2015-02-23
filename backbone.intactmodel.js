@@ -74,7 +74,7 @@
     /**
      * Get value from either native, session or derived property.
      */
-    get: function (attr) {
+    get: function (attr, options) {
       var val;
       var groups = [this.attributes, this.session, this.derived];
 
@@ -85,7 +85,7 @@
         }
       }
 
-      return _.isFunction(val) ? val.call(this) : val;
+      return _.isFunction(val) ? val.call(this, options) : val;
     },
 
     /**
